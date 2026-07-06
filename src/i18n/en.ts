@@ -94,6 +94,8 @@ export const en: SiteContent = {
         { k: 'Current Status', v: 'Completed – Accept' },
         { k: 'Final Disposition', v: '2026-07-03 · Accept' },
       ],
+      screenshotAlt:
+        'Original Editorial Manager screenshot: manuscript NEUNET-D-25-05170 (Unified Knowledge Distillation), status Completed – Accept, final disposition set 2026-07-03',
     },
     doiNote: 'This record will be replaced by the DOI / ScienceDirect link upon formal publication (in press)',
   },

@@ -33,7 +33,7 @@ export interface SiteContent {
     facts: string[];
     points: string[];
     diagram: { branches: string[]; unified: string };
-    record: { title: string; badge: string; rows: { k: string; v: string }[] };
+    record: { title: string; badge: string; rows: { k: string; v: string }[]; screenshotAlt: string };
     doiNote: string;
   };
   projects: {
@@ -160,6 +160,8 @@ export const zh: SiteContent = {
         { k: 'Current Status', v: 'Completed – Accept' },
         { k: 'Final Disposition', v: '2026-07-03 · Accept' },
       ],
+      screenshotAlt:
+        'Editorial Manager 系统原始截图：Unified Knowledge Distillation 稿件（NEUNET-D-25-05170）状态 Completed – Accept，终审日期 2026-07-03',
     },
     doiNote: '正式出版后，此处将替换为 DOI / ScienceDirect 链接（in press）',
   },
