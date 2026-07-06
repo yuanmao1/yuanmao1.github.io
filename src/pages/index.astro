@@ -1,7 +1,13 @@
 ---
+import Base from '../layouts/Base.astro';
+import { getContent } from '../i18n';
+
+const content = getContent('zh');
 ---
 
-<html lang="zh-CN">
-  <head><meta charset="utf-8" /><title>hello</title></head>
-  <body>hello</body>
-</html>
+<Base content={content}>
+  <main id="top" class="mx-auto max-w-5xl px-5 pt-40">
+    <p class="reveal">占位内容：区块组件将在后续任务接入。</p>
+    <div class="h-[200vh]"></div>
+  </main>
+</Base>

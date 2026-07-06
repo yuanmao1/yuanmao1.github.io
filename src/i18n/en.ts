@@ -43,7 +43,7 @@ export const en: SiteContent = {
     label: '01 / Trajectory',
     heading: 'One through-line',
     bio: [
-      "I'm Zhenye Chen, a software engineering student at Zhejiang University of Technology. My work falls into two threads: efficient deep learning research around knowledge distillation and model compression — with a paper accepted by Neural Networks — and building AI systems for real business workflows: recruiting and matching, collaborative writing, tradable-object discovery and negotiation protocols, and enterprise digital employees.',
+      "I'm Zhenye Chen, a software engineering student at Zhejiang University of Technology. My work falls into two threads: efficient deep learning research around knowledge distillation and model compression — with a paper accepted by Neural Networks — and building AI systems for real business workflows: recruiting and matching, collaborative writing, tradable-object discovery and negotiation protocols, and enterprise digital employees.",
       'Behind all of it is one through-line: making AI capabilities enter real-world workflows and transactions in ways that are verifiable, auditable, and hand-over-able.',
     ],
     nodes: [

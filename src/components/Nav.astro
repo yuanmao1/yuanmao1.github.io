@@ -1,0 +1,139 @@
+---
+import type { SiteContent } from '../i18n';
+
+interface Props {
+  content: SiteContent;
+}
+const { content } = Astro.props;
+const { nav } = content;
+---
+
+<header class="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4 md:pt-5">
+  <nav
+    id="site-nav"
+    class="pointer-events-auto flex w-full max-w-3xl items-center justify-between rounded-full border border-stroke bg-surface/70 px-4 py-2.5 backdrop-blur-md transition-shadow duration-300 md:w-auto md:justify-start md:gap-6 md:px-6"
+    aria-label="Main"
+  >
+    <a href="#top" class="flex items-center gap-2 text-sm font-semibold tracking-tight">
+      <span
+        class="accent-gradient inline-flex size-6 items-center justify-center rounded-full text-[10px] font-bold text-white"
+        >ZC</span
+      >
+    </a>
+
+    <ul class="hidden items-center gap-5 md:flex">
+      {
+        nav.items.map((item) => (
+          <li>
+            <a href={item.href} class="nav-underline inline-flex items-baseline gap-1.5 text-xs font-medium uppercase tracking-wider text-muted transition-colors hover:text-body">
+              <span class="font-mono text-[9px] opacity-70">{item.num}</span>
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="flex items-center gap-2">
+      <button
+        id="theme-toggle"
+        type="button"
+        aria-label={nav.themeToggle}
+        class="inline-flex size-9 items-center justify-center rounded-full border border-stroke text-muted transition-colors hover:text-body md:size-8"
+      >
+        <svg class="size-4 dark-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4.2"></circle>
+          <path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7"></path>
+        </svg>
+        <svg class="size-4 light-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"></path>
+        </svg>
+      </button>
+      <a
+        href={nav.langToggle.href}
+        class="inline-flex h-9 min-w-9 items-center justify-center rounded-full border border-stroke px-2 text-xs font-semibold text-muted transition-colors hover:text-body md:h-8 md:min-w-8"
+        >{nav.langToggle.label}</a
+      >
+      <button
+        id="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        data-menu={nav.menu}
+        data-close={nav.close}
+        class="inline-flex h-9 items-center gap-1.5 rounded-full bg-body px-3.5 text-xs font-medium text-bg md:hidden"
+      >
+        <span data-label-menu>{nav.menu}</span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- Mobile menu panel -->
+<div
+  id="mobile-menu"
+  class="fixed inset-x-4 top-[4.5rem] z-40 grid grid-rows-[0fr] overflow-hidden rounded-2xl border border-transparent bg-surface/95 backdrop-blur-md transition-[grid-template-rows,border-color] duration-[420ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:hidden"
+>
+  <div class="min-h-0 overflow-hidden">
+    <ul class="flex flex-col gap-1 p-5">
+      {
+        nav.items.map((item) => (
+          <li>
+            <a href={item.href} class="mobile-link flex items-baseline gap-3 rounded-lg px-3 py-3 text-[26px] font-medium leading-8 tracking-tight text-body">
+              <span class="font-mono text-[10px] uppercase text-muted">{item.num}</span>
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
+
+<script>
+  const nav = document.getElementById('site-nav')!;
+  const themeToggle = document.getElementById('theme-toggle')!;
+  const menuToggle = document.getElementById('menu-toggle')!;
+  const mobileMenu = document.getElementById('mobile-menu')!;
+  const menuLabel = menuToggle.querySelector('[data-label-menu]')!;
+  const labels = { menu: menuToggle.dataset.menu, close: menuToggle.dataset.close };
+
+  // Shadow after scrolling past 100px
+  const onScroll = () => {
+    nav.classList.toggle('shadow-lg', window.scrollY > 100);
+    nav.classList.toggle('shadow-black/20', window.scrollY > 100);
+  };
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Theme toggle
+  themeToggle.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('theme', next);
+  });
+
+  // Mobile menu
+  let open = false;
+  const setOpen = (v: boolean) => {
+    open = v;
+    menuToggle.setAttribute('aria-expanded', String(v));
+    mobileMenu.classList.toggle('grid-rows-[1fr]', v);
+    mobileMenu.classList.toggle('grid-rows-[0fr]', !v);
+    mobileMenu.classList.toggle('border-stroke', v);
+    mobileMenu.classList.toggle('border-transparent', !v);
+    menuLabel.textContent = v ? (labels.close ?? 'Close') : (labels.menu ?? 'Menu');
+  };
+  menuToggle.addEventListener('click', () => setOpen(!open));
+  mobileMenu.querySelectorAll('.mobile-link').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+</script>
+
+<style>
+  /* Theme-dependent icon visibility */
+  :global([data-theme='dark']) .light-icon {
+    display: none;
+  }
+  :global([data-theme='light']) .dark-icon {
+    display: none;
+  }
+</style>
