@@ -1,13 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
 import { getContent } from '../i18n';
 
 const content = getContent('zh');
 ---
 
 <Base content={content}>
-  <main id="top" class="mx-auto max-w-5xl px-5 pt-40">
-    <p class="reveal">占位内容：区块组件将在后续任务接入。</p>
-    <div class="h-[200vh]"></div>
+  <main>
+    <Hero content={content} />
+    <div class="h-[150vh]"></div>
   </main>
 </Base>

@@ -1,0 +1,108 @@
+---
+import type { SiteContent } from '../i18n';
+
+interface Props {
+  content: SiteContent;
+}
+const { content } = Astro.props;
+const { hero } = content;
+// Duplicate the first word at the end so the CSS loop wraps seamlessly.
+const rotateWords = [...hero.rotateWords, hero.rotateWords[0]];
+---
+
+<section id="top" class="hero relative flex min-h-svh flex-col overflow-hidden px-5 pt-28 md:px-10">
+  <!-- Ambient background: drifting grid + radial glow (pure CSS, no media) -->
+  <div class="hero-bg pointer-events-none absolute inset-0" aria-hidden="true"></div>
+
+  <div class="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col">
+    <!-- Center block -->
+    <div class="flex flex-1 flex-col items-center justify-center text-center">
+      <p class="enter font-mono text-[11px] font-semibold uppercase tracking-[0.28em] text-muted" style="--d:.15s">
+        {hero.tagline}
+      </p>
+
+      <h1
+        class="name-gradient enter mt-4 text-[17vw] font-black leading-none tracking-tight md:text-[9.5rem]"
+        style="--d:.3s"
+      >
+        {hero.name}
+      </h1>
+      <p class="enter mt-2 font-display text-[6.5vw] italic text-muted md:text-4xl" style="--d:.45s">
+        {hero.altName}
+      </p>
+
+      <!-- Rotating words -->
+      <div class="enter mt-8 flex items-baseline gap-2 text-base md:text-xl" style="--d:.6s">
+        <span class="text-muted">{hero.rotatePrefix}</span>
+        <span class="relative inline-block h-[1.4em] overflow-hidden align-bottom">
+          <span class="word-rotor inline-flex flex-col text-left font-semibold">
+            {rotateWords.map((w) => <span class="accent-text h-[1.4em] leading-[1.4em]">{w}</span>)}
+          </span>
+        </span>
+      </div>
+
+      <!-- Entry buttons -->
+      <div class="enter mt-10 flex flex-wrap items-center justify-center gap-3" style="--d:.75s">
+        {
+          hero.buttons.map((b, i) => (
+            <a
+              href={b.href}
+              target={b.external ? '_blank' : undefined}
+              rel={b.external ? 'noopener' : undefined}
+              class:list={[
+                'inline-flex h-11 items-center rounded-full px-6 text-sm font-medium transition-transform duration-300 hover:-translate-y-0.5',
+                i === 0 ? 'bg-body text-bg' : 'border border-stroke text-body hover:border-accent-b',
+              ]}
+            >
+              {b.label}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="flex items-end justify-between pb-8 md:pb-10">
+      <p
+        class="enter max-w-[180px] text-left font-mono text-[10px] uppercase leading-relaxed tracking-wider text-muted sm:max-w-[260px] md:text-[11px]"
+        style="--d:.9s"
+      >
+        {hero.intro}
+      </p>
+      <div class="enter flex items-center gap-2.5" style="--d:1.05s">
+        <span class="relative flex size-2">
+          <span class="pulse-dot absolute inline-flex size-full rounded-full bg-emerald-400"></span>
+          <span class="relative inline-flex size-2 rounded-full bg-emerald-400"></span>
+        </span>
+        <span class="font-mono text-[10px] uppercase tracking-wider text-muted md:text-[11px]">
+          {hero.availability}
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-bg {
+    background-image:
+      radial-gradient(ellipse 60% 45% at 50% 38%, var(--glow), transparent 70%),
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size:
+      100% 100%,
+      56px 56px,
+      56px 56px;
+    animation: drift-grid 24s linear infinite;
+    mask-image: linear-gradient(to bottom, black 62%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 62%, transparent 100%);
+  }
+
+  .word-rotor {
+    animation: word-rotate 10s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  }
+
+  .pulse-dot {
+    animation: pulse-dot 1.6s ease-in-out infinite;
+    box-shadow: 0 0 12px rgba(52, 211, 153, 0.6);
+  }
+</style>
