@@ -31,6 +31,8 @@ export const en: SiteContent = {
       'tradable-object protocols',
       'enterprise digital employees',
     ],
+    description:
+      'I research and build AI systems: from model training and agent infrastructure to intelligent transformation of real business workflows.',
     intro: 'Taking intelligent systems from papers into real business workflows',
     availability: 'Open to collaboration',
     buttons: [
@@ -83,7 +85,17 @@ export const en: SiteContent = {
       branches: ['Offline KD', 'Online KD', 'Self KD'],
       unified: 'Unified Framework',
     },
-    doiNote: 'DOI / ScienceDirect link will be added upon formal publication (in press)',
+    record: {
+      title: 'Editorial Manager acceptance record',
+      badge: 'Accept',
+      rows: [
+        { k: 'Manuscript', v: 'NEUNET-D-25-05170' },
+        { k: 'Submitted', v: '2025-10-08' },
+        { k: 'Current Status', v: 'Completed – Accept' },
+        { k: 'Final Disposition', v: '2026-07-03 · Accept' },
+      ],
+    },
+    doiNote: 'This record will be replaced by the DOI / ScienceDirect link upon formal publication (in press)',
   },
   projects: {
     label: '03 / Projects',
@@ -121,7 +133,7 @@ export const en: SiteContent = {
           'HR decision support and multi-agent task workflows',
         ],
         flow: ['Résumé', 'Capability profile', 'Job matching', 'Assessment / Learning path', 'HR workflow'],
-        links: [{ label: 'pageflux.ai', href: 'https://www.pageflux.ai' }],
+        links: [{ label: 'pageflux.cn', href: 'https://www.pageflux.cn' }],
       },
       {
         num: '03',
@@ -148,6 +160,7 @@ export const en: SiteContent = {
           'FDE method: on-site diagnosis → process decomposition → permission design → prototype → production',
           'High-impact actions keep human approval; automation and risk control coexist',
           'Browser operation, task orchestration, sandboxed permissions and audit logging',
+          'Industry-generic digital employees that individuals can deploy to earn directly — e.g. in growth marketing, a digital employee gathers material, generates short videos and articles, publishes and sells across platforms, and runs the accounts (including replying to comments) while the user collects the income',
           'Every deployment compounds into reusable workflows, components and domain playbooks',
         ],
         flow: ['Diagnosis', 'Permission design', 'Prototype', 'Production', 'Iteration'],

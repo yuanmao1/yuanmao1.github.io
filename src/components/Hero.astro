@@ -13,6 +13,10 @@ const rotateWords = [...hero.rotateWords, hero.rotateWords[0]];
 <section id="top" class="hero relative flex min-h-svh flex-col overflow-hidden px-5 pt-28 md:px-10">
   <!-- Ambient background: drifting grid + radial glow (pure CSS, no media) -->
   <div class="hero-bg pointer-events-none absolute inset-0" aria-hidden="true"></div>
+  <!-- Floating accent orb, follows the pointer slightly on desktop -->
+  <div class="hero-orb pointer-events-none absolute inset-0" aria-hidden="true">
+    <div class="hero-orb-inner"></div>
+  </div>
 
   <div class="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col">
     <!-- Center block -->
@@ -22,7 +26,7 @@ const rotateWords = [...hero.rotateWords, hero.rotateWords[0]];
       </p>
 
       <h1
-        class="name-gradient enter mt-4 text-[17vw] font-black leading-none tracking-tight md:text-[9.5rem]"
+        class="name-gradient name-sheen enter mt-4 text-[17vw] font-black leading-none tracking-tight md:text-[9.5rem]"
         style="--d:.3s"
       >
         {hero.name}
@@ -41,8 +45,13 @@ const rotateWords = [...hero.rotateWords, hero.rotateWords[0]];
         </span>
       </div>
 
+      <!-- Positioning statement -->
+      <p class="enter mt-6 max-w-xl text-balance text-sm leading-relaxed text-muted md:text-base" style="--d:.7s">
+        {hero.description}
+      </p>
+
       <!-- Entry buttons -->
-      <div class="enter mt-10 flex flex-wrap items-center justify-center gap-3" style="--d:.75s">
+      <div class="enter mt-10 flex flex-wrap items-center justify-center gap-3" style="--d:.85s">
         {
           hero.buttons.map((b, i) => (
             <a
@@ -50,8 +59,10 @@ const rotateWords = [...hero.rotateWords, hero.rotateWords[0]];
               target={b.external ? '_blank' : undefined}
               rel={b.external ? 'noopener' : undefined}
               class:list={[
-                'inline-flex h-11 items-center rounded-full px-6 text-sm font-medium transition-transform duration-300 hover:-translate-y-0.5',
-                i === 0 ? 'bg-body text-bg' : 'border border-stroke text-body hover:border-accent-b',
+                'magnetic inline-flex h-11 items-center rounded-full px-6 text-sm font-medium transition-[transform,border-color,box-shadow] duration-200',
+                i === 0
+                  ? 'bg-body text-bg hover:shadow-lg'
+                  : 'border border-stroke text-body hover:border-accent-b',
               ]}
             >
               {b.label}
@@ -61,15 +72,24 @@ const rotateWords = [...hero.rotateWords, hero.rotateWords[0]];
       </div>
     </div>
 
+    <!-- Scroll indicator -->
+    <div class="pointer-events-none absolute bottom-8 left-1/2 hidden -translate-x-1/2 md:block" aria-hidden="true">
+      <span class="enter block" style="--d:1.3s">
+        <svg class="bounce size-5 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 9l6 6 6-6"></path>
+        </svg>
+      </span>
+    </div>
+
     <!-- Bottom bar -->
     <div class="flex items-end justify-between pb-8 md:pb-10">
       <p
         class="enter max-w-[180px] text-left font-mono text-[10px] uppercase leading-relaxed tracking-wider text-muted sm:max-w-[260px] md:text-[11px]"
-        style="--d:.9s"
+        style="--d:1.05s"
       >
         {hero.intro}
       </p>
-      <div class="enter flex items-center gap-2.5" style="--d:1.05s">
+      <div class="enter flex items-center gap-2.5" style="--d:1.15s">
         <span class="relative flex size-2">
           <span class="pulse-dot absolute inline-flex size-full rounded-full bg-emerald-400"></span>
           <span class="relative inline-flex size-2 rounded-full bg-emerald-400"></span>
@@ -97,6 +117,23 @@ const rotateWords = [...hero.rotateWords, hero.rotateWords[0]];
     -webkit-mask-image: linear-gradient(to bottom, black 62%, transparent 100%);
   }
 
+  /* Accent orb: idle float everywhere, pointer parallax added on fine pointers */
+  .hero-orb {
+    display: grid;
+    place-items: center;
+    transform: translate(calc(var(--mx, 0) * 28px), calc(var(--my, 0) * 22px));
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+  .hero-orb-inner {
+    width: min(56vw, 640px);
+    height: min(40vw, 460px);
+    border-radius: 9999px;
+    background: radial-gradient(ellipse at center, var(--glow), transparent 68%);
+    filter: blur(24px);
+    animation: orb-float 14s ease-in-out infinite;
+  }
+
   .word-rotor {
     animation: word-rotate 10s cubic-bezier(0.16, 1, 0.3, 1) infinite;
   }
@@ -105,4 +142,37 @@ const rotateWords = [...hero.rotateWords, hero.rotateWords[0]];
     animation: pulse-dot 1.6s ease-in-out infinite;
     box-shadow: 0 0 12px rgba(52, 211, 153, 0.6);
   }
+
+  .bounce {
+    animation: bounce-down 1.8s ease-in-out infinite;
+  }
 </style>
+
+<script>
+  const fine = matchMedia('(pointer: fine)').matches;
+  const noMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (fine && !noMotion) {
+    // Pointer parallax on the hero orb
+    const hero = document.querySelector<HTMLElement>('.hero');
+    hero?.addEventListener('mousemove', (e) => {
+      const r = hero.getBoundingClientRect();
+      hero.style.setProperty('--mx', String((e.clientX - r.left) / r.width - 0.5));
+      hero.style.setProperty('--my', String((e.clientY - r.top) / r.height - 0.5));
+    });
+
+    // Magnetic buttons
+    document.querySelectorAll<HTMLElement>('.magnetic').forEach((el) => {
+      const strength = 16;
+      el.addEventListener('mousemove', (e) => {
+        const r = el.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width - 0.5) * strength;
+        const y = ((e.clientY - r.top) / r.height - 0.5) * strength;
+        el.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.transform = '';
+      });
+    });
+  }
+</script>

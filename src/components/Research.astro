@@ -10,7 +10,7 @@ const { research } = content;
 
 <section id="research" class="mx-auto max-w-6xl scroll-mt-24 px-5 py-24 md:px-10 md:py-32">
   <p class="section-label reveal">{research.label}</p>
-  <h2 class="reveal mt-4 text-3xl font-bold tracking-tight md:text-5xl">{research.heading}</h2>
+  <h2 class="heading-bar reveal mt-4 text-3xl font-bold tracking-tight md:text-5xl">{research.heading}</h2>
 
   <article class="reveal mt-10 rounded-2xl border border-stroke bg-surface p-6 md:p-10">
     <div class="flex flex-wrap items-center gap-2">
@@ -28,7 +28,7 @@ const { research } = content;
     </h3>
 
     <div class="mt-8 grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-      <ul class="space-y-3 text-[15px] leading-relaxed text-muted md:text-base">
+      <ul class="reveal-group space-y-3 text-[15px] leading-relaxed text-muted md:text-base">
         {
           research.points.map((p) => (
             <li class="flex gap-3">
@@ -66,6 +66,29 @@ const { research } = content;
           {research.diagram.unified.split(' ').slice(1).join(' ')}
         </text>
       </svg>
+    </div>
+
+    <!-- Acceptance record (to be replaced by DOI link upon publication) -->
+    <div class="reveal mt-10 overflow-hidden rounded-xl border border-stroke">
+      <div class="flex items-center justify-between gap-3 border-b border-stroke bg-bg/40 px-4 py-2.5 md:px-5">
+        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">{research.record.title}</span>
+        <span class="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-emerald-400">
+          <svg class="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6L9 17l-5-5"></path>
+          </svg>
+          {research.record.badge}
+        </span>
+      </div>
+      <dl class="reveal-group grid gap-x-8 gap-y-3 px-4 py-4 sm:grid-cols-2 md:px-5 lg:grid-cols-4">
+        {
+          research.record.rows.map((row) => (
+            <div>
+              <dt class="font-mono text-[9px] uppercase tracking-[0.18em] text-muted">{row.k}</dt>
+              <dd class="mt-1 font-mono text-xs text-body md:text-[13px]">{row.v}</dd>
+            </div>
+          ))
+        }
+      </dl>
     </div>
 
     <p class="mt-8 border-t border-stroke pt-5 font-mono text-[11px] uppercase tracking-wider text-muted">

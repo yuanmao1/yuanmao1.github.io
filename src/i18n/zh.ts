@@ -14,6 +14,7 @@ export interface SiteContent {
     tagline: string;
     rotatePrefix: string;
     rotateWords: string[];
+    description: string;
     intro: string;
     availability: string;
     buttons: { label: string; href: string; external?: boolean }[];
@@ -32,6 +33,7 @@ export interface SiteContent {
     facts: string[];
     points: string[];
     diagram: { branches: string[]; unified: string };
+    record: { title: string; badge: string; rows: { k: string; v: string }[] };
     doiNote: string;
   };
   projects: {
@@ -95,6 +97,8 @@ export const zh: SiteContent = {
     tagline: 'AI Systems · Knowledge Distillation · Agent Infrastructure',
     rotatePrefix: '我构建',
     rotateWords: ['高效深度学习模型', 'Agent 基础设施', '可交易对象协议', '企业数字员工'],
+    description:
+      '我主要研究和构建 AI 系统：从模型训练、Agent 基础设施，到真实业务流程中的智能化改造。',
     intro: '让智能系统从论文走进真实业务流程',
     availability: 'Open to collaboration',
     buttons: [
@@ -147,7 +151,17 @@ export const zh: SiteContent = {
       branches: ['Offline KD', 'Online KD', 'Self KD'],
       unified: 'Unified Framework',
     },
-    doiNote: 'DOI / ScienceDirect 链接将在正式出版后补充（in press）',
+    record: {
+      title: 'Editorial Manager 录用记录',
+      badge: 'Accept',
+      rows: [
+        { k: 'Manuscript', v: 'NEUNET-D-25-05170' },
+        { k: 'Submitted', v: '2025-10-08' },
+        { k: 'Current Status', v: 'Completed – Accept' },
+        { k: 'Final Disposition', v: '2026-07-03 · Accept' },
+      ],
+    },
+    doiNote: '正式出版后，此处将替换为 DOI / ScienceDirect 链接（in press）',
   },
   projects: {
     label: '03 / Projects',
@@ -185,7 +199,7 @@ export const zh: SiteContent = {
           'HR 决策辅助与多 Agent 任务流程',
         ],
         flow: ['简历', '能力画像', '岗位匹配', '测评 / 学习路径', 'HR 协同'],
-        links: [{ label: 'pageflux.ai', href: 'https://www.pageflux.ai' }],
+        links: [{ label: 'pageflux.cn', href: 'https://www.pageflux.cn' }],
       },
       {
         num: '03',
@@ -212,6 +226,7 @@ export const zh: SiteContent = {
           'FDE 方法：现场诊断 → 流程拆解 → 权限设计 → 原型 → 生产上线',
           '高影响动作保留人工审批，自动化与风控并存',
           '浏览器操作、任务编排、沙盒权限与日志审计',
+          '行业通用数字员工方案：个人也可直接部署用于创收——例如市场增长场景中，数字员工自动收集资料、生成自媒体视频与文章、多平台发布带货，并自动运营账号、回复评论，用户直接获得收益',
           '每次部署沉淀为可复用的工作流、组件与行业经验',
         ],
         flow: ['流程诊断', '权限设计', '原型部署', '生产上线', '持续优化'],

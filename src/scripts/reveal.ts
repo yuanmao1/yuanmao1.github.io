@@ -1,5 +1,5 @@
-// Reveal-on-scroll: adds .revealed to .reveal elements when they enter the viewport.
-const els = document.querySelectorAll<HTMLElement>('.reveal');
+// Reveal-on-scroll: adds .revealed to .reveal / .reveal-group elements entering the viewport.
+const els = document.querySelectorAll<HTMLElement>('.reveal, .reveal-group');
 
 if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
   els.forEach((el) => el.classList.add('revealed'));

@@ -158,6 +158,48 @@ body {
   transform: none;
 }
 
+/* Staggered reveal: children of a .reveal-group fade in one after another */
+.js .reveal-group > * {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.js .reveal-group.revealed > * {
+  opacity: 1;
+  transform: none;
+}
+.js .reveal-group.revealed > :nth-child(1) { transition-delay: 0.05s; }
+.js .reveal-group.revealed > :nth-child(2) { transition-delay: 0.13s; }
+.js .reveal-group.revealed > :nth-child(3) { transition-delay: 0.21s; }
+.js .reveal-group.revealed > :nth-child(4) { transition-delay: 0.29s; }
+.js .reveal-group.revealed > :nth-child(5) { transition-delay: 0.37s; }
+.js .reveal-group.revealed > :nth-child(6) { transition-delay: 0.45s; }
+.js .reveal-group.revealed > :nth-child(7) { transition-delay: 0.53s; }
+.js .reveal-group.revealed > :nth-child(8) { transition-delay: 0.61s; }
+
+/* Section heading accent bar that grows in on reveal */
+.heading-bar::after {
+  content: '';
+  display: block;
+  width: 64px;
+  height: 2px;
+  margin-top: 14px;
+  background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+}
+.heading-bar.revealed::after {
+  transform: scaleX(1);
+}
+
+/* Slow vertical sheen over the gradient name */
+.name-sheen {
+  background-size: 100% 180%;
+  animation: name-sheen 7s ease-in-out infinite alternate;
+}
+
 /* Hero entrance (staggered via --d custom property) */
 .enter {
   opacity: 0;
@@ -238,6 +280,37 @@ body {
   }
 }
 
+@keyframes name-sheen {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 0% 100%;
+  }
+}
+
+@keyframes bounce-down {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(7px);
+    opacity: 1;
+  }
+}
+
+@keyframes orb-float {
+  0%,
+  100% {
+    transform: translate(-4%, -3%) scale(1);
+  }
+  50% {
+    transform: translate(4%, 3%) scale(1.06);
+  }
+}
+
 /* ---------- Motion preferences ---------- */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -251,7 +324,9 @@ body {
     transition-duration: 0.01ms !important;
   }
   .reveal,
-  .enter {
+  .enter,
+  .reveal-group > *,
+  .heading-bar::after {
     opacity: 1 !important;
     transform: none !important;
   }

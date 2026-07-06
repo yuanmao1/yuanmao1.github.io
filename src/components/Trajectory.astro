@@ -11,14 +11,14 @@ const marqueeItems = [...trajectory.marquee, ...trajectory.marquee];
 
 <section id="trajectory" class="mx-auto max-w-6xl scroll-mt-24 px-5 py-24 md:px-10 md:py-32">
   <p class="section-label reveal">{trajectory.label}</p>
-  <h2 class="reveal mt-4 text-3xl font-bold tracking-tight md:text-5xl">{trajectory.heading}</h2>
+  <h2 class="heading-bar reveal mt-4 text-3xl font-bold tracking-tight md:text-5xl">{trajectory.heading}</h2>
 
   <div class="reveal mt-8 max-w-3xl space-y-5 text-[15px] leading-relaxed text-muted md:text-base">
     {trajectory.bio.map((p) => <p>{p}</p>)}
   </div>
 
   <!-- Path: horizontal stepper on lg+, vertical timeline below -->
-  <ol class="reveal relative mt-16 ml-2 space-y-8 border-l border-stroke pl-7 lg:ml-0 lg:grid lg:grid-cols-4 lg:gap-6 lg:space-y-0 lg:border-l-0 lg:pl-0">
+  <ol class="reveal-group relative mt-16 ml-2 space-y-8 border-l border-stroke pl-7 lg:ml-0 lg:grid lg:grid-cols-4 lg:gap-6 lg:space-y-0 lg:border-l-0 lg:pl-0">
     <span class="pointer-events-none absolute left-2 top-2 hidden h-px w-[calc(100%-1rem)] bg-stroke lg:block" aria-hidden="true"></span>
     {
       trajectory.nodes.map((node, i) => (
@@ -36,20 +36,31 @@ const marqueeItems = [...trajectory.marquee, ...trajectory.marquee];
     }
   </ol>
 
-  <!-- Keyword marquee -->
-  <div
-    class="marquee-wrap reveal mt-20 overflow-hidden border-y border-stroke py-4"
-    aria-hidden="true"
-  >
-    <div class="marquee flex w-max items-center gap-10 whitespace-nowrap">
-      {
-        marqueeItems.map((k) => (
-          <span class="flex items-center gap-10 font-mono text-xs uppercase tracking-[0.2em] text-muted">
-            {k}
-            <span class="accent-text text-sm">·</span>
-          </span>
-        ))
-      }
+  <!-- Keyword marquee: two rows drifting in opposite directions -->
+  <div class="reveal mt-20 border-y border-stroke" aria-hidden="true">
+    <div class="marquee-wrap overflow-hidden pt-4 pb-2">
+      <div class="marquee flex w-max items-center gap-10 whitespace-nowrap">
+        {
+          marqueeItems.map((k) => (
+            <span class="flex items-center gap-10 font-mono text-xs uppercase tracking-[0.2em] text-muted">
+              {k}
+              <span class="accent-text text-sm">·</span>
+            </span>
+          ))
+        }
+      </div>
+    </div>
+    <div class="marquee-wrap overflow-hidden pt-2 pb-4">
+      <div class="marquee marquee-reverse flex w-max items-center gap-10 whitespace-nowrap opacity-60">
+        {
+          marqueeItems.map((k) => (
+            <span class="flex items-center gap-10 font-mono text-xs uppercase tracking-[0.2em] text-muted">
+              {k}
+              <span class="accent-text text-sm">·</span>
+            </span>
+          ))
+        }
+      </div>
     </div>
   </div>
 </section>
@@ -57,6 +68,10 @@ const marqueeItems = [...trajectory.marquee, ...trajectory.marquee];
 <style>
   .marquee {
     animation: marquee 36s linear infinite;
+  }
+  .marquee-reverse {
+    animation-direction: reverse;
+    animation-duration: 48s;
   }
   .marquee-wrap:hover .marquee {
     animation-play-state: paused;

@@ -45,10 +45,38 @@ const canonical = new URL(isEn ? '/en/' : '/', Astro.site);
     </script>
   </head>
   <body class="bg-bg font-body text-body antialiased">
+    <div
+      id="scroll-progress"
+      class="accent-gradient fixed inset-x-0 top-0 z-[60] h-[2px] origin-left scale-x-0"
+      aria-hidden="true"
+    >
+    </div>
     <Nav content={content} />
     <slot />
     <script>
       import '../scripts/reveal';
+
+      // Top scroll progress bar
+      const bar = document.getElementById('scroll-progress');
+      if (bar) {
+        let ticking = false;
+        const update = () => {
+          const max = document.documentElement.scrollHeight - innerHeight;
+          bar.style.transform = `scaleX(${max > 0 ? Math.min(scrollY / max, 1) : 0})`;
+          ticking = false;
+        };
+        addEventListener(
+          'scroll',
+          () => {
+            if (!ticking) {
+              ticking = true;
+              requestAnimationFrame(update);
+            }
+          },
+          { passive: true },
+        );
+        update();
+      }
     </script>
   </body>
 </html>

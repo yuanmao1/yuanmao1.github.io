@@ -13,7 +13,7 @@ const { num, name, tagline, abstract, points, flow, links, index } = Astro.props
 ---
 
 <article
-  class="project-card rounded-2xl border border-stroke bg-surface p-6 md:p-10"
+  class="project-card rounded-2xl border border-stroke bg-surface p-6 transition-colors duration-300 hover:border-accent-b/40 md:p-10"
   style={`--stack-i:${index}`}
 >
   <div class="flex items-baseline justify-between gap-4">
@@ -30,7 +30,7 @@ const { num, name, tagline, abstract, points, flow, links, index } = Astro.props
   <p class="mt-6 max-w-3xl text-[15px] leading-relaxed text-muted md:text-base">{abstract}</p>
 
   <div class="mt-8 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-    <ul class="space-y-2.5 text-sm leading-relaxed text-muted md:text-[15px]">
+    <ul class="reveal-group space-y-2.5 text-sm leading-relaxed text-muted md:text-[15px]">
       {
         points.map((p) => (
           <li class="flex gap-3">
