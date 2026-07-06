@@ -171,3 +171,19 @@ export default defineConfig({
 - 规格覆盖：§3 全部区块 → Task 4-10；§2 技术表 → Task 1-2；§5 移动端 → 各任务截图步骤 + Task 12；§7 结构 → 各任务文件路径与之一致；§8 验收 → Task 12。无缺口。
 - 占位符扫描：无 TBD；Task 3 的文案"按规格写全量"有规格 §3 的逐条内容作为直接来源，非悬空引用。
 - 命名一致性：组件名 Hero/Trajectory/Research/Projects/ProjectCard/OpenSource/Contact/Nav 在 Task 4-10 与规格 §7 一致。
+
+---
+
+## 验收记录（2026-07-06）
+
+| 验收项 | 结果 |
+|---|---|
+| 1. `npm run build` 纯静态产出，preview 一致 | ✅ 2 页（`/`、`/en/`）构建成功 |
+| 2. 中/英路由内容完整对应 | ✅ Playwright 截图核对 |
+| 3. 暗/亮主题切换无闪烁、localStorage 持久化 | ✅ 首帧内联脚本；切换后 `theme=light` 已存储 |
+| 4. Lighthouse 移动端 | ✅ Performance 100 / Accessibility 100 / Best Practices 100 / SEO 100 |
+| 5. prefers-reduced-motion 动画停止且内容全部可见 | ✅ 0 个隐藏 reveal 元素 |
+| 6. 375px–2560px 布局不破 | ✅ 375 / 1440 / 2560 三档截图核对，无横向溢出 |
+| 7. OG 标签 + og-image | ✅ head 完整，og-image.png 已生成 |
+
+交互抽查：移动菜单开合与锚点滚动正常（scrollY=716）、桌面粘性卡片堆叠正常、marquee/轮换词/脉冲点动画正常、无 JS 时内容可见（reveal 仅在 `html.js` 下隐藏）。
