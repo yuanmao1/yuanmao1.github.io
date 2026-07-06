@@ -1,0 +1,75 @@
+---
+import type { SiteContent } from '../i18n';
+
+interface Props {
+  content: SiteContent;
+}
+const { content } = Astro.props;
+const { research } = content;
+---
+
+<section id="research" class="mx-auto max-w-6xl scroll-mt-24 px-5 py-24 md:px-10 md:py-32">
+  <p class="section-label reveal">{research.label}</p>
+  <h2 class="reveal mt-4 text-3xl font-bold tracking-tight md:text-5xl">{research.heading}</h2>
+
+  <article class="reveal mt-10 rounded-2xl border border-stroke bg-surface p-6 md:p-10">
+    <div class="flex flex-wrap items-center gap-2">
+      {
+        research.facts.map((f) => (
+          <span class="rounded-full border border-stroke px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-muted">
+            {f}
+          </span>
+        ))
+      }
+    </div>
+
+    <h3 class="mt-6 max-w-3xl font-display text-2xl italic leading-snug md:text-[2rem]">
+      {research.paperTitle}
+    </h3>
+
+    <div class="mt-8 grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+      <ul class="space-y-3 text-[15px] leading-relaxed text-muted md:text-base">
+        {
+          research.points.map((p) => (
+            <li class="flex gap-3">
+              <span class="accent-text mt-0.5 select-none font-mono text-sm">→</span>
+              {p}
+            </li>
+          ))
+        }
+      </ul>
+
+      <!-- Paradigm unification diagram -->
+      <svg viewBox="0 0 320 190" class="w-full max-w-sm justify-self-center" role="img" aria-label={research.diagram.unified}>
+        <defs>
+          <linearGradient id="rg" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="var(--accent-a)"></stop>
+            <stop offset="1" stop-color="var(--accent-b)"></stop>
+          </linearGradient>
+        </defs>
+        {
+          research.diagram.branches.map((b, i) => (
+            <>
+              <rect x="10" y={12 + i * 58} width="110" height="34" rx="8" fill="none" stroke="var(--stroke)" />
+              <text x="65" y={33 + i * 58} text-anchor="middle" font-size="11" fill="var(--muted)" font-family="ui-monospace, monospace">
+                {b}
+              </text>
+              <path d={`M 120 ${29 + i * 58} C 160 ${29 + i * 58}, 160 95, 196 95`} fill="none" stroke="url(#rg)" stroke-width="1.2" opacity="0.7" />
+            </>
+          ))
+        }
+        <rect x="196" y="72" width="114" height="46" rx="10" fill="none" stroke="url(#rg)" stroke-width="1.4"></rect>
+        <text x="253" y="91" text-anchor="middle" font-size="10.5" fill="var(--text)" font-family="ui-monospace, monospace">
+          {research.diagram.unified.split(' ')[0]}
+        </text>
+        <text x="253" y="105" text-anchor="middle" font-size="10.5" fill="var(--text)" font-family="ui-monospace, monospace">
+          {research.diagram.unified.split(' ').slice(1).join(' ')}
+        </text>
+      </svg>
+    </div>
+
+    <p class="mt-8 border-t border-stroke pt-5 font-mono text-[11px] uppercase tracking-wider text-muted">
+      {research.doiNote}
+    </p>
+  </article>
+</section>

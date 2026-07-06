@@ -1,0 +1,32 @@
+---
+import type { SiteContent } from '../i18n';
+import ProjectCard from './ProjectCard.astro';
+
+interface Props {
+  content: SiteContent;
+}
+const { content } = Astro.props;
+const { projects } = content;
+---
+
+<section id="projects" class="mx-auto max-w-6xl scroll-mt-24 px-5 py-24 md:px-10 md:py-32">
+  <p class="section-label reveal">{projects.label}</p>
+  <h2 class="reveal mt-4 text-3xl font-bold tracking-tight md:text-5xl">{projects.heading}</h2>
+
+  <div class="stack mt-10 space-y-6 md:space-y-8">
+    {projects.items.map((item, i) => <ProjectCard {...item} index={i} />)}
+  </div>
+</section>
+
+<style>
+  /* Desktop: sticky stacking — each card pins below the nav and the next one slides over it. */
+  @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+    .stack :global(.project-card) {
+      position: sticky;
+      top: calc(6rem + var(--stack-i) * 1.5rem);
+      /* Later cards need to paint above earlier ones. */
+      z-index: calc(var(--stack-i) + 1);
+      box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.25);
+    }
+  }
+</style>

@@ -146,14 +146,14 @@ body {
   opacity: 1;
 }
 
-/* Reveal on scroll */
-.reveal {
+/* Reveal on scroll (only hidden when JS is available to reveal it again) */
+.js .reveal {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.reveal.revealed {
+.js .reveal.revealed {
   opacity: 1;
   transform: none;
 }

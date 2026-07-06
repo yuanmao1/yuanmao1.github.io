@@ -32,6 +32,7 @@ const canonical = new URL(isEn ? '/en/' : '/', Astro.site);
     <meta name="twitter:card" content="summary_large_image" />
     <script is:inline>
       (() => {
+        document.documentElement.classList.add('js');
         const stored = localStorage.getItem('theme');
         const theme =
           stored === 'light' || stored === 'dark'

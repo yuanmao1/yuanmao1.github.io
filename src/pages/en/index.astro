@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import Trajectory from '../../components/Trajectory.astro';
+import Research from '../../components/Research.astro';
+import Projects from '../../components/Projects.astro';
+import OpenSource from '../../components/OpenSource.astro';
+import Contact from '../../components/Contact.astro';
+import { getContent } from '../../i18n';
+
+const content = getContent('en');
+---
+
+<Base content={content}>
+  <main>
+    <Hero content={content} />
+    <Trajectory content={content} />
+    <Research content={content} />
+    <Projects content={content} />
+    <OpenSource content={content} />
+  </main>
+  <Contact content={content} />
+</Base>

@@ -1,0 +1,76 @@
+---
+interface Props {
+  num: string;
+  name: string;
+  tagline: string;
+  abstract: string;
+  points: string[];
+  flow: string[];
+  links: { label: string; href: string }[];
+  index: number;
+}
+const { num, name, tagline, abstract, points, flow, links, index } = Astro.props;
+---
+
+<article
+  class="project-card rounded-2xl border border-stroke bg-surface p-6 md:p-10"
+  style={`--stack-i:${index}`}
+>
+  <div class="flex items-baseline justify-between gap-4">
+    <div class="flex items-baseline gap-4">
+      <span class="font-mono text-xs uppercase tracking-[0.25em] text-muted">{num}</span>
+      <h3 class="text-2xl font-bold tracking-tight md:text-4xl">{name}</h3>
+    </div>
+    <span class="hidden text-right font-mono text-[10px] uppercase tracking-wider text-muted sm:block">
+      {tagline}
+    </span>
+  </div>
+  <p class="mt-2 font-mono text-[10px] uppercase tracking-wider text-muted sm:hidden">{tagline}</p>
+
+  <p class="mt-6 max-w-3xl text-[15px] leading-relaxed text-muted md:text-base">{abstract}</p>
+
+  <div class="mt-8 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+    <ul class="space-y-2.5 text-sm leading-relaxed text-muted md:text-[15px]">
+      {
+        points.map((p) => (
+          <li class="flex gap-3">
+            <span class="accent-text mt-0.5 select-none font-mono text-xs">→</span>
+            {p}
+          </li>
+        ))
+      }
+    </ul>
+
+    <!-- Flow diagram: pill chain, wraps on narrow screens -->
+    <div class="flex flex-wrap items-center gap-y-3 justify-self-start lg:justify-self-center" aria-label={`${name} flow`}>
+      {
+        flow.map((step, i) => (
+          <>
+            <span class="rounded-full border border-stroke px-3 py-1.5 font-mono text-[10px] uppercase tracking-wide text-body">
+              {step}
+            </span>
+            {i < flow.length - 1 && <span class="accent-text px-1.5 font-mono text-xs">→</span>}
+          </>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="mt-8 flex flex-wrap gap-3 border-t border-stroke pt-6">
+    {
+      links.map((l) => (
+        <a
+          href={l.href}
+          target="_blank"
+          rel="noopener"
+          class="nav-underline inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-body"
+        >
+          {l.label}
+          <svg class="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 17L17 7M9 7h8v8"></path>
+          </svg>
+        </a>
+      ))
+    }
+  </div>
+</article>
