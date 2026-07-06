@@ -1,0 +1,258 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/inter';
+@import '@fontsource/instrument-serif/400-italic.css';
+
+/* ---------- Theme variables ---------- */
+:root,
+:root[data-theme='dark'] {
+  --bg: #0a0a0c;
+  --surface: #111114;
+  --text: #f2f2f0;
+  --muted: #8a8a93;
+  --stroke: rgba(255, 255, 255, 0.1);
+  --accent-a: #89aacc;
+  --accent-b: #4e85bf;
+  --glow: rgba(78, 133, 191, 0.14);
+  --grid-line: rgba(255, 255, 255, 0.045);
+  --name-grad-top: #6a7280;
+  --name-grad-bottom: #d7e2ea;
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --bg: #f7f7f5;
+  --surface: #ffffff;
+  --text: #17171a;
+  --muted: #6b6b74;
+  --stroke: rgba(0, 0, 0, 0.1);
+  --accent-a: #4e85bf;
+  --accent-b: #2f5f96;
+  --glow: rgba(78, 133, 191, 0.1);
+  --grid-line: rgba(0, 0, 0, 0.05);
+  --name-grad-top: #3c434d;
+  --name-grad-bottom: #17171a;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-body: var(--text);
+  --color-muted: var(--muted);
+  --color-stroke: var(--stroke);
+  --color-accent-a: var(--accent-a);
+  --color-accent-b: var(--accent-b);
+  --font-body: 'Inter Variable', system-ui, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', sans-serif;
+  --font-display: 'Instrument Serif', 'Songti SC', 'STSong', 'SimSun', serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', Consolas, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.7;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+::selection {
+  background: var(--accent-b);
+  color: #fff;
+}
+
+/* ---------- Shared primitives ---------- */
+
+/* Section label: `02 / TRAJECTORY` style */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--muted);
+}
+
+.accent-gradient {
+  background: linear-gradient(90deg, var(--accent-a) 0%, var(--accent-b) 100%);
+}
+
+.accent-text {
+  background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Giant gradient name */
+.name-gradient {
+  background: linear-gradient(180deg, var(--name-grad-top) 0%, var(--name-grad-bottom) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Nav link underline slides in from the right */
+.nav-underline {
+  position: relative;
+}
+.nav-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Gradient border card (open source hover) */
+.gradient-border {
+  position: relative;
+  border: 1px solid var(--stroke);
+  transition: border-color 0.3s ease;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(90deg, var(--accent-a), var(--accent-b), var(--accent-a));
+  background-size: 200% 100%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: gradient-shift 6s ease infinite;
+  pointer-events: none;
+}
+.gradient-border:hover::before {
+  opacity: 1;
+}
+
+/* Reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hero entrance (staggered via --d custom property) */
+.enter {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: enter-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--d, 0s);
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes enter-up {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.45);
+    opacity: 0.45;
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes drift-grid {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 56px 56px;
+  }
+}
+
+@keyframes word-rotate {
+  0%,
+  22% {
+    transform: translateY(0);
+  }
+  25%,
+  47% {
+    transform: translateY(-1.4em);
+  }
+  50%,
+  72% {
+    transform: translateY(-2.8em);
+  }
+  75%,
+  97% {
+    transform: translateY(-4.2em);
+  }
+  100% {
+    transform: translateY(-5.6em);
+  }
+}
+
+/* ---------- Motion preferences ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal,
+  .enter {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
