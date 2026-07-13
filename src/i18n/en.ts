@@ -45,7 +45,7 @@ export const en: SiteContent = {
     label: '01 / Trajectory',
     heading: 'One through-line',
     bio: [
-      "I'm Zhenye Chen, a software engineering student at Zhejiang University of Technology. My work falls into two threads: efficient deep learning research around knowledge distillation and model compression — with a paper accepted by Neural Networks — and building AI systems for real business workflows: recruiting and matching, collaborative writing, tradable-object discovery and negotiation protocols, and enterprise digital employees.",
+      "I'm Zhenye Chen, a software engineering student at Zhejiang University of Technology. My work falls into two threads: efficient deep learning research around knowledge distillation and model compression — with a paper published in Neural Networks — and building AI systems for real business workflows: recruiting and matching, collaborative writing, tradable-object discovery and negotiation protocols, and enterprise digital employees.",
       'Behind all of it is one through-line: making AI capabilities enter real-world workflows and transactions in ways that are verifiable, auditable, and hand-over-able.',
     ],
     nodes: [
@@ -75,7 +75,7 @@ export const en: SiteContent = {
     heading: 'Research & Publications',
     paperTitle:
       'Unified Knowledge Distillation: Integrating Offline, Online, and Self-Distillation Paradigms for Image Classification',
-    facts: ['Co-first author', 'Neural Networks', 'Accepted · 2026-07-03'],
+    facts: ['Co-first author', 'Neural Networks', 'Published · Vol. 205'],
     points: [
       'Studies a unified modeling relationship among offline, online, and self-distillation for image classification.',
       'Co-designed a unified knowledge distillation framework that brings different distillation paradigms into one training and experiment pipeline.',
@@ -85,19 +85,12 @@ export const en: SiteContent = {
       branches: ['Offline KD', 'Online KD', 'Self KD'],
       unified: 'Unified Framework',
     },
-    record: {
-      title: 'Editorial Manager acceptance record',
-      badge: 'Accept',
-      rows: [
-        { k: 'Manuscript', v: 'NEUNET-D-25-05170' },
-        { k: 'Submitted', v: '2025-10-08' },
-        { k: 'Current Status', v: 'Completed – Accept' },
-        { k: 'Final Disposition', v: '2026-07-03 · Accept' },
-      ],
-      screenshotAlt:
-        'Original Editorial Manager screenshot: manuscript NEUNET-D-25-05170 (Unified Knowledge Distillation), status Completed – Accept, final disposition set 2026-07-03',
+    publication: {
+      doi: '10.1016/j.neunet.2026.109336',
+      url: 'https://doi.org/10.1016/j.neunet.2026.109336',
+      citation:
+        'S. Wang, Z. Chen, F. Wu, J. Chen, P. Hao. Neural Networks 205 (2027) 109336.',
     },
-    doiNote: 'This record will be replaced by the DOI / ScienceDirect link upon formal publication (in press)',
   },
   projects: {
     label: '03 / Projects',

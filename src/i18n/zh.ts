@@ -33,8 +33,7 @@ export interface SiteContent {
     facts: string[];
     points: string[];
     diagram: { branches: string[]; unified: string };
-    record: { title: string; badge: string; rows: { k: string; v: string }[]; screenshotAlt: string };
-    doiNote: string;
+    publication: { doi: string; url: string; citation: string };
   };
   projects: {
     label: string;
@@ -111,7 +110,7 @@ export const zh: SiteContent = {
     label: '01 / Trajectory',
     heading: '一条主线',
     bio: [
-      '我是陈震烨，浙江工业大学软件工程专业学生。我目前主要做两类事情：一是围绕知识蒸馏和模型压缩进行高效深度学习研究，论文已被 Neural Networks 接收；二是构建面向真实业务流程的 AI 系统——从招聘匹配、协同写作，到可交易对象检索与协商协议，再到企业数字员工。',
+      '我是陈震烨，浙江工业大学软件工程专业学生。我目前主要做两类事情：一是围绕知识蒸馏和模型压缩进行高效深度学习研究，论文已发表于 Neural Networks；二是构建面向真实业务流程的 AI 系统——从招聘匹配、协同写作，到可交易对象检索与协商协议，再到企业数字员工。',
       '这些工作背后是同一条主线：让 AI 能力以可验证、可审计、可交接的方式，进入真实世界的流程和交易。',
     ],
     nodes: [
@@ -141,7 +140,7 @@ export const zh: SiteContent = {
     heading: '研究与论文',
     paperTitle:
       'Unified Knowledge Distillation: Integrating Offline, Online, and Self-Distillation Paradigms for Image Classification',
-    facts: ['共同第一作者', 'Neural Networks', 'Accepted · 2026-07-03'],
+    facts: ['共同第一作者', 'Neural Networks', '已发表 · Vol. 205'],
     points: [
       '围绕图像分类任务，研究离线蒸馏、在线蒸馏与自蒸馏之间的统一建模关系。',
       '参与设计统一知识蒸馏框架，将不同蒸馏范式纳入统一训练与实验流程。',
@@ -151,19 +150,12 @@ export const zh: SiteContent = {
       branches: ['Offline KD', 'Online KD', 'Self KD'],
       unified: 'Unified Framework',
     },
-    record: {
-      title: 'Editorial Manager 录用记录',
-      badge: 'Accept',
-      rows: [
-        { k: 'Manuscript', v: 'NEUNET-D-25-05170' },
-        { k: 'Submitted', v: '2025-10-08' },
-        { k: 'Current Status', v: 'Completed – Accept' },
-        { k: 'Final Disposition', v: '2026-07-03 · Accept' },
-      ],
-      screenshotAlt:
-        'Editorial Manager 系统原始截图：Unified Knowledge Distillation 稿件（NEUNET-D-25-05170）状态 Completed – Accept，终审日期 2026-07-03',
+    publication: {
+      doi: '10.1016/j.neunet.2026.109336',
+      url: 'https://doi.org/10.1016/j.neunet.2026.109336',
+      citation:
+        'S. Wang, Z. Chen, F. Wu, J. Chen, P. Hao. Neural Networks 205 (2027) 109336.',
     },
-    doiNote: '正式出版后，此处将替换为 DOI / ScienceDirect 链接（in press）',
   },
   projects: {
     label: '03 / Projects',
